@@ -1,0 +1,19 @@
+services:
+  recognizer:
+    build: .
+    container_name: recognizer_service
+    env_file:
+      - .env
+    expose:
+      - "8001"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.recognizer.rule=Host(`api.yourdomain.com`)"
+      - "traefik.http.services.recognizer.loadbalancer.server.port=8001"
+    restart: unless-stopped
+
+networks:
+  web:
+    external: true

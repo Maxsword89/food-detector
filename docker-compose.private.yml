@@ -1,0 +1,15 @@
+services:
+  recognizer:
+    build: .
+    container_name: recognizer_service
+    env_file:
+      - .env
+    networks:
+      - internal
+    expose:
+      - "8001"
+    restart: unless-stopped
+
+networks:
+  internal:
+    driver: bridge
